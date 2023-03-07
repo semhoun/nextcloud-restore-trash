@@ -13,14 +13,16 @@ use Symfony\Component\Console\SingleCommandApplication;
     ->addOption('password', 'p', InputOption::VALUE_REQUIRED)
     ->addOption('date', 'd', InputOption::VALUE_REQUIRED)
     ->addOption('connections', 'c', InputOption::VALUE_OPTIONAL, 'How many connections should be opened at the same time?', 1)
+    ->addOption('fileregex', 'r', InputOption::VALUE_OPTIONAL, 'Original file regex', '')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
        $uri = $input->getOption('url');
        $username = $input->getOption('username');
        $password = $input->getOption('password');
        $date = $input->getOption('date');
        $connections = $input->getOption('connections');
+       $fileregex = $input->getOption('fileregex');
 
-       $r = new RestoreTrash($uri, $username, $password, $date, $connections);
+       $r = new RestoreTrash($uri, $username, $password, $date, $connections, $fileregex);
        $r->run();
     })
     ->run();
